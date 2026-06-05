@@ -1,0 +1,6 @@
+@media print {
+    body { background: white; color: black; }
+    .sidebar, .top-header, .env-stats { display: none !important; }
+    .main-content { padding: 0; }
+    .card { border: none; box-shadow: none; }
+}
