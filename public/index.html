@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BABYLON - Financial Agent</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="logo-circle">₿</div>
+                <h2>BABYLON.IA</h2>
+            </div>
+            <p class="tagline">FINANCIAL AGENT</p>
+            <nav class="menu">
+                <a href="#" class="menu-item active" data-tab="tab-costs">
+                    <span class="icon">📊</span> Costos Internos
+                </a>
+                <a href="#" class="menu-item" data-tab="tab-billing">
+                    <span class="icon">💼</span> Facturas y Cotización
+                </a>
+                <a href="#" class="menu-item" data-tab="tab-telemetry">
+                    <span class="icon">🧠</span> Telemetría Geist
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="status-badge">
+                    <span class="pulse-dot"></span>
+                    <span>Modo Local Protegido</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-header">
+                <div class="header-info">
+                    <h1>Calculadora Financiera B2B</h1>
+                    <p>Modelado de viabilidad económica sin transferencia de datos a la nube.</p>
+                </div>
+                <div class="env-stats">
+                    <div class="stat-bubble">
+                        <span class="label">Tokens Disp.</span>
+                        <span class="value success">Ilimitados</span>
+                    </div>
+                    <div class="stat-bubble">
+                        <span class="label">Privacidad</span>
+                        <span class="value success">100% Local</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Tab Costs -->
+            <section id="tab-costs" class="tab-pane active">
+                <div class="grid-layout">
+                    <!-- Sliders -->
+                    <div class="card glass-card span-8">
+                        <h3>Configuración de Costos Mensuales</h3>
+                        <div class="slider-group">
+                            <div class="slider-header">
+                                <label for="range-developers">Desarrolladores Integrados (Hasta 50 trab.)</label>
+                                <span class="slider-val" id="val-developers">$0 COP</span>
+                            </div>
+                            <input type="range" id="range-developers" min="0" max="30000000" step="500000" value="8000000">
+                        </div>
+
+                        <div class="slider-group">
+                            <div class="slider-header">
+                                <label for="range-overhead">Gastos Operativos (Overhead, AWS Fallback, etc.)</label>
+                                <span class="slider-val" id="val-overhead">$0 COP</span>
+                            </div>
+                            <input type="range" id="range-overhead" min="0" max="15000000" step="200000" value="3000000">
+                        </div>
+
+                        <div class="slider-group">
+                            <div class="slider-header">
+                                <label for="range-tokens">Simulación Costo Tokens Nube (Si fuera API comercial)</label>
+                                <span class="slider-val" id="val-tokens">$0 COP</span>
+                            </div>
+                            <input type="range" id="range-tokens" min="0" max="8000000" step="100000" value="2500000">
+                        </div>
+
+                        <div class="slider-group">
+                            <div class="slider-header">
+                                <label for="range-local-savings">Ahorro Neto por Modelos Locales (Ollama/Geist)</label>
+                                <span class="slider-val success-text" id="val-local-savings">100% Ahorro</span>
+                            </div>
+                            <input type="range" id="range-local-savings" min="0" max="100" value="100" disabled>
+                        </div>
+                    </div>
+
+                    <!-- Side Stats -->
+                    <div class="card glass-card span-4 flex-col justify-between">
+                        <h3>Resumen Operativo</h3>
+                        <div class="kpi-block">
+                            <span class="kpi-label">Costo Total Estimado</span>
+                            <span class="kpi-value error-text" id="total-internal-cost">$0 COP</span>
+                        </div>
+                        <div class="kpi-block">
+                            <span class="kpi-label">Ahorro por IA Local</span>
+                            <span class="kpi-value success-text" id="total-savings-val">$0 COP</span>
+                        </div>
+                        <div class="kpi-block border-top">
+                            <span class="kpi-label">Margen de Seguridad Sugerido</span>
+                            <span class="kpi-value text-accent">35%</span>
+                        </div>
+                    </div>
+
+                    <!-- Chart -->
+                    <div class="card glass-card span-12">
+                        <h3>Proyección de Margen de Ganancia vs Clientes</h3>
+                        <div class="chart-container" style="position: relative; height:220px; width:100%">
+                            <canvas id="costChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tab Billing -->
+            <section id="tab-billing" class="tab-pane">
+                <div class="grid-layout">
+                    <!-- Form Cotizacion -->
+                    <div class="card glass-card span-7">
+                        <h3>Generador de Cotizaciones B2B</h3>
+                        <form id="quote-form">
+                            <div class="form-group">
+                                <label for="client-name">Nombre de la Empresa Cliente</label>
+                                <input type="text" id="client-name" placeholder="Ej: Medical SAS" required>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="num-workers">Número de Empleados</label>
+                                    <input type="number" id="num-workers" min="1" max="50" value="15">
+                                </div>
+                                <div class="form-group">
+                                    <label for="margin-target">Margen de Ganancia Objetivo (%)</label>
+                                    <input type="number" id="margin-target" min="5" max="95" value="40">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="billing-type">Modelo Comercial de la IA Local</label>
+                                <select id="billing-type">
+                                    <option value="subscription">Membresía Anual + Soporte Mensual (Recomendado)</option>
+                                    <option value="one-time">Licenciamiento Único Local</option>
+                                    <option value="maintenance">Solo Mantenimiento Anual</option>
+                                </select>
+                            </div>
+                            <button type="button" class="btn-primary" id="btn-calculate-quote">Calcular e Inscribir Cotización</button>
+                        </form>
+                    </div>
+
+                    <!-- Result Panel -->
+                    <div class="card glass-card span-5 quote-output">
+                        <h3>Resumen de la Cotización</h3>
+                        <div id="quote-results-empty">
+                            <p class="muted-text text-center" style="margin-top: 50px;">Configura los datos del cliente y haz clic en calcular.</p>
+                        </div>
+                        <div id="quote-results-content" class="hidden">
+                            <div class="quote-header">
+                                <h4 id="res-client">MEDICAL SAS</h4>
+                                <span class="badge" id="res-badge-type">Membresía</span>
+                            </div>
+                            <div class="result-row">
+                                <span>Costo Base Interno:</span>
+                                <strong id="res-base-cost">$0 COP</strong>
+                            </div>
+                            <div class="result-row">
+                                <span>Margen Calculado:</span>
+                                <strong class="success-text" id="res-margin-val">$0 COP</strong>
+                            </div>
+                            <div class="result-row highlight">
+                                <span>Valor Total Sugerido:</span>
+                                <strong id="res-total-sug">$0 COP</strong>
+                            </div>
+                            <div class="result-row">
+                                <span>Soporte Mensual (10%):</span>
+                                <strong id="res-support-val">$0 COP</strong>
+                            </div>
+                            <div class="quote-actions" style="margin-top: 20px;">
+                                <button class="btn-success w-100" id="btn-export-pdf">Imprimir Propuesta / Guardar Registro</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Quotes -->
+                    <div class="card glass-card span-12">
+                        <h3>Historial de Cotizaciones Emitidas</h3>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Cliente</th>
+                                    <th>Modelo Comercial</th>
+                                    <th>Empleados</th>
+                                    <th>Margen Objetivo</th>
+                                    <th>Precio Total</th>
+                                    <th>Fecha</th>
+                                </tr>
+                            </thead>
+                            <tbody id="quotes-history-body">
+                                <tr>
+                                    <td colspan="6" class="muted-text text-center">No hay cotizaciones guardadas localmente.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tab Telemetry -->
+            <section id="tab-telemetry" class="tab-pane">
+                <div class="grid-layout">
+                    <div class="card glass-card span-12">
+                        <h3>Ciclo Dialéctico Geist (Procesador Financiero)</h3>
+                        <p class="muted-text">Logs de toma de decisiones locales basados en la dialéctica Hegeliana (Tesis-Antítesis-Síntesis).</p>
+                        
+                        <div class="terminal-window">
+                            <div class="terminal-header">
+                                <span class="dot red"></span>
+                                <span class="dot yellow"></span>
+                                <span class="dot green"></span>
+                                <span class="terminal-title">geist_financial_process.log</span>
+                            </div>
+                            <div class="terminal-body" id="telemetry-logs">
+                                <div class="log-line"><span class="log-time">[01:14:48]</span> <span class="log-info">SYSTEM:</span> Inicializando Geist Conciencia Central de Costos...</div>
+                                <div class="log-line"><span class="log-time">[01:14:49]</span> <span class="log-info">TESIS:</span> Petición de cálculo para cliente 'Medical SAS' con infraestructura local.</div>
+                                <div class="log-line"><span class="log-time">[01:14:50]</span> <span class="log-warn">ANTÍTESIS:</span> La capacidad del servidor local (GPU RTX 4090) podría saturarse si el número de trabajadores concurrentes supera los 50.</div>
+                                <div class="log-line"><span class="log-time">[01:14:52]</span> <span class="log-success">SÍNTESIS:</span> Establecer límite del plan de 50 trabajadores por nodo de IA y sugerir arquitectura en clúster local para escalabilidad. Viabilidad aprobada.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

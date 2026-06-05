@@ -1,0 +1,17 @@
+{
+  "name": "babylon-financial-agent",
+  "version": "1.0.0",
+  "description": "Internal cost and external quoting calculator with local data privacy. Part of the BABYLON.IA suite.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": ["babylon", "financial", "calculator", "billing", "local-ai"],
+  "author": "DOMINUSBABEL",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.19.2",
+    "cors": "^2.8.5"
+  }
+}
