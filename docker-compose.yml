@@ -1,0 +1,9 @@
+version: '3.8'
+services:
+  financial-agent:
+    build: .
+    ports:
+      - "4001:4001"
+    volumes:
+      - .:/app
+      - /app/node_modules
