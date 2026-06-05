@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "filesystem-reports": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "C:/Users/jegom/BABYLON-FINANCIAL-AGENT/reports"],
+      "env": {}
+    }
+  }
+}
