@@ -1,6 +1,8 @@
-const { exponentialSmoothing } = require('../skills/financial-analytics/forecasting');
-test('exponential smoothing matches base values', () => {
-    const data = [100, 110, 120];
-    const smooth = exponentialSmoothing(data, 0.5);
-    expect(smooth[0]).toBe(100);
+const { doubleExponentialSmoothing } = require('../skills/financial-analytics/forecasting');
+
+test('double exponential smoothing correctly forecasts increasing trend', () => {
+    const data = [10, 20, 30, 40, 50];
+    const result = doubleExponentialSmoothing(data, 0.5, 0.5);
+    expect(result.forecasts.length).toBe(5);
+    expect(result.forecasts[4]).toBeGreaterThan(result.smoothed[4]);
 });

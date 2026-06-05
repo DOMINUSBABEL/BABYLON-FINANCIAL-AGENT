@@ -4,7 +4,9 @@
       "command": "npx",
       "args": ["-y", "@modelcontextprotocol/server-sqlite", "--db", "db/ledger.sqlite"],
       "env": {
-        "SQLITE_ReadOnly": "false"
+        "SQLITE_ReadOnly": "false",
+        "SQLITE_SafeMode": "true",
+        "SQLITE_MaxQueryTimeMs": "2000"
       }
     }
   }
